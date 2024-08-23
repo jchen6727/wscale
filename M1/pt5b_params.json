@@ -1,0 +1,191 @@
+{
+    "net": {
+        "params": {
+            "_labelid": 0,
+            "cellParams": {
+                "PT5B": {
+                    "conds": {
+                        "cellModel": "HH_full",
+                        "cellType": "PT"
+                    },
+                    "secLists": {
+                        "alldend": [
+                            "dendrite"
+                        ],
+                        "apical_dendrites": [],
+                        "perisom": [
+                            "soma",
+                            "axon_0",
+                            "axon_1"
+                        ],
+                        "spiny": [
+                            "dendrite"
+                        ]
+                    },
+                    "secs": {
+                        "axon_0": {
+                            "geom": {
+                                "pt3d": [
+                                    [
+                                        1e+30,
+                                        1e+30,
+                                        1e+30,
+                                        1e+30
+                                    ]
+                                ]
+                            }
+                        },
+                        "axon_1": {
+                            "geom": {
+                                "pt3d": [
+                                    [
+                                        1e+30,
+                                        1e+30,
+                                        1e+30,
+                                        1e+30
+                                    ]
+                                ]
+                            }
+                        },
+                        "dendrite": {
+                            "geom": {
+                                "L": 200.0,
+                                "Ra": 150.0,
+                                "cm": 1.0,
+                                "diam": 2.0
+                            },
+                            "mechs": {
+                                "pas": {
+                                    "e": -70,
+                                    "g": 0.001
+                                }
+                            },
+                            "topol": {
+                                "childX": 0.0,
+                                "parentSec": "soma",
+                                "parentX": 1.0
+                            }
+                        },
+                        "soma": {
+                            "geom": {
+                                "L": 20.0,
+                                "Ra": 100.0,
+                                "cm": 1.0,
+                                "diam": 20.0
+                            },
+                            "mechs": {
+                                "hd": {
+                                    "gbar": 0.0001
+                                },
+                                "hh": {
+                                    "el": -54.3,
+                                    "gkbar": 0.036,
+                                    "gl": 0.0003,
+                                    "gnabar": 0.12
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "cellsVisualizationSpacingMultiplier": [
+                1,
+                1,
+                1
+            ],
+            "connParams": {},
+            "correctBorder": false,
+            "defaultDelay": 1,
+            "defaultThreshold": 0.0,
+            "defaultWeight": 1,
+            "defineCellShapes": true,
+            "mapping": {},
+            "popParams": {
+                "PT5B": {
+                    "cellModel": "HH_full",
+                    "cellType": "PT",
+                    "numCells": 1
+                }
+            },
+            "popTagsCopiedToCells": [
+                "cellModel",
+                "cellType"
+            ],
+            "propVelocity": 500.0,
+            "rotateCellsRandomly": false,
+            "rxdParams": {},
+            "scale": 1,
+            "scaleConnWeight": 1,
+            "scaleConnWeightModels": false,
+            "scaleConnWeightNetStims": 1,
+            "shape": "cuboid",
+            "sizeX": 100,
+            "sizeY": 100,
+            "sizeZ": 100,
+            "stimSourceParams": {
+                "NetStim1": {
+                    "interval": 10000000000.0,
+                    "noise": 0,
+                    "number": 1,
+                    "start": 700,
+                    "type": "NetStim"
+                }
+            },
+            "stimTargetParams": {
+                "NetStim1->PT5B": {
+                    "conds": {
+                        "pop": "PT5B"
+                    },
+                    "delay": 1,
+                    "loc": 0.5,
+                    "sec": "soma",
+                    "source": "NetStim1",
+                    "synMech": [
+                        "NMDA"
+                    ],
+                    "weight": 0.001
+                }
+            },
+            "subConnParams": {},
+            "synMechParams": {
+                "AMPA": {
+                    "e": 0,
+                    "mod": "MyExp2SynBB",
+                    "tau1": 0.05,
+                    "tau2": 5.3
+                },
+                "GABAA": {
+                    "e": -80,
+                    "mod": "MyExp2SynBB",
+                    "tau1": 0.07,
+                    "tau2": 18.2
+                },
+                "GABAB": {
+                    "e": -93,
+                    "mod": "MyExp2SynBB",
+                    "tau1": 3.5,
+                    "tau2": 260.9
+                },
+                "GABAs": {
+                    "e": -80,
+                    "mod": "MyExp2SynBB",
+                    "tau1": 2,
+                    "tau2": 100
+                },
+                "GABAss": {
+                    "e": -80,
+                    "mod": "MyExp2SynBB",
+                    "tau1": 200,
+                    "tau2": 400
+                },
+                "NMDA": {
+                    "e": 0,
+                    "mod": "MyExp2SynNMDABB",
+                    "r": 1,
+                    "tau1NMDA": 15,
+                    "tau2NMDA": 150
+                }
+            }
+        }
+    }
+}
