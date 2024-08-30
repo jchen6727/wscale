@@ -6,16 +6,28 @@ from neuron import h
 import os
 import json
 
-def load_dll():
+def load_dll(path='arm64/.libs/libnrnmech.so'):
+    """
+    Load the NEURON mod folder by finding the file path of this file directory,
+    Parameters
+    ----------
+    path -> relative path from the calling file
+
+    Returns
+    -------
+
+    """
     # Loads the NEURON mod folder by finding the file path of this file directory,
     try:
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        hoc_file_path = os.path.join(script_dir, 'mod/x86_64/.libs/libnrnmech.so')
+        hoc_file_path = os.path.join(script_dir, path)
         h.nrn_load_dll(hoc_file_path)
 
+    except RuntimeError as e:
+        Warning("already loaded mechanisms, or there was an issue with path, ")
     except Exception as e:
-        print(f"Error loading DLL: {e}")
-        raise
+        raise(RuntimeError("Error loading DLL: {}, check path: {}".format(e, hoc_file_path)))
+
 
 def calculate_epsp(vsoma: dict, stimRange=[700, 900]):
     """
@@ -45,22 +57,22 @@ def simulation(netParams, cfg):
     print('transmitting data...')
 
     inputs  = specs.get_mappings()
-    vsoma   =  sim.simData['V_soma']['cell_0']
+    vsoma   = sim.simData['V_soma']['cell_0'].as_numpy()
+    stim_start = netParams['stimSourceParams']['NetStim1']['start']
 
-    if vsoma is None:
-        print("Error: Somatic voltage trace not found")
-        return
+    stim_start_index = int(stim_start / cfg.recordStep)
+    stim_stop_index = stim_start_index + int(200 / cfg.recordStep)
 
-    # Calculate the EPSP value
-    epsp_value = calculate_epsp(vsoma)
+    #calculate the EPSP delta as:
+    #start and stop - resting membrane potential
+    epsp = max(vsoma[stim_start_index:stim_stop_index]) - vsoma[stim_start_index - 1]
 
     # Define target EPSP value for loss calculation
     target_epsp_value = 5.0 # Example value
 
-    results = sim.analysis.popAvgRates(show=False)
-
-    results['PT5B_loss'] = (epsp_value - target_epsp_value)**2 # example target value
-    results['loss']      = (results['PT5B_loss'])
+    #results = sim.analysis.popAvgRates(show=False)
+    #multicompartmental cell, so should return the section and the weight
+    results = {'epsp': epsp, 'section': cfg.sec, 'weight': cfg.weight}
 
     out_json = json.dumps({**inputs, **results})
 
@@ -69,13 +81,13 @@ def simulation(netParams, cfg):
     comm.send(out_json)
     comm.close()
 
-load_dll()
+
+cfg.update_cfg()
+#load_dll()
 comm.initialize()
 
+
 sim.createSimulate(netParams=netParams, simConfig=cfg)
-for cell in sim.net.cells:
-    if cell.gid == 0:
-        print("Cells in gid 0", cell.tags)
 
 print('completed simulation...')
 

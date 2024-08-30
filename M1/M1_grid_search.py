@@ -34,7 +34,7 @@ result_grid = search(job_type = 'sh', # or Shell config
        output_path     = os.path.join(os.path.dirname(M1_file), "grid_batch"),  
        checkpoint_path = os.path.join(os.path.dirname(M1_file), "ray"),
        num_samples     = 1,
-       metric          = 'loss',
+       metric          = 'epsp',
        mode            = 'min',
        algorithm       = "variant_generator",
        max_concurrent  = 9)

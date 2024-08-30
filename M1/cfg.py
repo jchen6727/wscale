@@ -31,10 +31,10 @@ def initialize_simulation_config():
 
     # Recording options
     cfg.recordTraces = {
-        'V_soma': {'sec': 'compartCell_PT_HH_full_0.soma', 'loc': 0.5},
+        'V_soma': {'sec': 'soma', 'loc': 0.5, 'var': 'v'},
     }                             # Traces to record (empty dictionary to not save traces)
     cfg.recordStim   = False      # Record stimuli flag
-    cfg.recordStep   = 0.01       # Step size in ms to save data (e.g., V traces, LFP, etc)
+    cfg.recordStep   = 0.1       # Step size in ms to save data (e.g., V traces, LFP, etc)
     cfg.recordLFP    = None       # LFP recording configuration (None to not save LFP)
 
     # Saving options
