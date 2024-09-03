@@ -1,0 +1,139 @@
+{
+    "secs": {
+        "soma": {
+            "geom": {
+                "diam": 20,
+                "L": 20,
+                "cm": 1,
+                "Ra": 150
+            },
+            "mechs": {
+                "pas": {
+                    "g": 3.57e-05,
+                    "e": -70
+                },
+                "nacurrent": {},
+                "kacurrent": {},
+                "kdrcurent": {},
+                "hcurrent": {}
+            }
+        },
+        "Bdend": {
+            "geom": {
+                "diam": 2,
+                "L": 200,
+                "cm": 1,
+                "Ra": 150
+            },
+            "topol": {
+                "parentSec": "soma",
+                "parentX": 0,
+                "childX": 0
+            },
+            "mechs": {
+                "pas": {
+                    "g": 3.57e-05,
+                    "e": -70
+                },
+                "nacurrent": {
+                    "ki": 1
+                },
+                "kacurrent": {},
+                "kdrcurrent": {},
+                "hcurrent": {}
+            }
+        },
+        "Adend1": {
+            "geom": {
+                "diam": 2,
+                "L": 150,
+                "cm": 1,
+                "Ra": 150
+            },
+            "topol": {
+                "parentSec": "soma",
+                "parentX": 1.0,
+                "childX": 0
+            },
+            "mechs": {
+                "pas": {
+                    "g": 3.57e-05,
+                    "e": -70
+                },
+                "nacurrent": {
+                    "ki": 0.5
+                },
+                "kacurrent": {
+                    "g": 0.072
+                },
+                "kdrcurrent": {},
+                "hcurrent": {
+                    "v50": -82,
+                    "g": 0.0002
+                }
+            }
+        },
+        "Adend2": {
+            "geom": {
+                "diam": 2,
+                "L": 150,
+                "cm": 1,
+                "Ra": 150
+            },
+            "topol": {
+                "parentSec": "Adend1",
+                "parentX": 1,
+                "childX": 0
+            },
+            "mechs": {
+                "pas": {
+                    "g": 3.57e-05,
+                    "e": -70
+                },
+                "nacurrent": {
+                    "ki": 0.5
+                },
+                "kacurrent": {
+                    "g": 0,
+                    "gd": 0.12
+                },
+                "kdrcurrent": {},
+                "hcurrent": {
+                    "v50": -90,
+                    "g": 0.0004
+                }
+            }
+        },
+        "Adend3": {
+            "geom": {
+                "diam": 2,
+                "L": 150,
+                "cm": 2,
+                "Ra": 150
+            },
+            "topol": {
+                "parentSec": "Adend2",
+                "parentX": 1,
+                "childX": 0
+            },
+            "mechs": {
+                "pas": {
+                    "g": 7.14e-05,
+                    "e": -70
+                },
+                "nacurrent": {
+                    "ki": 0.5
+                },
+                "kacurrent": {
+                    "g": 0,
+                    "gd": 0.2
+                },
+                "kdrcurrent": {},
+                "hcurrent": {
+                    "v50": -90,
+                    "g": 0.0007
+                }
+            }
+        }
+    }
+}

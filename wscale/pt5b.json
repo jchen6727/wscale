@@ -1,0 +1,84 @@
+{
+    "secs": {
+        "soma": {
+            "geom": {
+                "diam": 20.0,
+                "L": 20.0,
+                "Ra": 100.0,
+                "cm": 1.0
+            },
+            "mechs": {
+                "hh": {
+                    "gnabar": 0.12,
+                    "gkbar": 0.036,
+                    "gl": 0.0003,
+                    "el": -54.3
+                },
+                "hd": {
+                    "gbar": 0.0001
+                }
+            }
+        },
+        "dendrite": {
+            "geom": {
+                "diam": 2.0,
+                "L": 200.0,
+                "Ra": 150.0,
+                "cm": 1.0
+            },
+            "topol": {
+                "parentSec": "soma",
+                "parentX": 1.0,
+                "childX": 0.0
+            },
+            "mechs": {
+                "pas": {
+                    "g": 0.001,
+                    "e": -70
+                }
+            }
+        },
+        "axon_0": {
+            "geom": {
+                "pt3d": [
+                    [
+                        1e+30,
+                        1e+30,
+                        1e+30,
+                        1e+30
+                    ]
+                ]
+            }
+        },
+        "axon_1": {
+            "geom": {
+                "pt3d": [
+                    [
+                        1e+30,
+                        1e+30,
+                        1e+30,
+                        1e+30
+                    ]
+                ]
+            }
+        }
+    },
+    "secLists": {
+        "perisom": [
+            "soma",
+            "axon_0",
+            "axon_1"
+        ],
+        "alldend": [
+            "dendrite"
+        ],
+        "spiny": [
+            "dendrite"
+        ],
+        "apical_dendrites": []
+    },
+    "conds": {
+        "cellModel": "HH_full",
+        "cellType": "PT"
+    }
+}
