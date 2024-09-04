@@ -1,4 +1,4 @@
-from netpyne.batchtools import specs
+from netpyne.batchtools import specs, comm
 from netpyne import sim
 import json
 from cfg import cfg
@@ -13,6 +13,10 @@ def init_cfg(cfg):
     #cfg = specs.SimConfig(cfg.__dict__)
     cfg.sec = 'soma'
     cfg.weight = 0.5
+    cfg.analysis['plotTraces'] = {
+        'include': ['CELL'],
+        'saveFig': True,
+    }
     cfg.recordTraces = {
         'V_soma': {'sec': 'soma', 'loc': 0.5, 'var': 'v'},
     }
@@ -55,10 +59,19 @@ def init_test(cfg, cell, syn):
 
     return cfg, netParams
 
-def return_epsp(sim):
-    pass
+def get_epsp(sim):
+    v = sim.simData['V_soma']['cell_0'].as_numpy()
+    start = int(sim.net.params.stimSourceParams['STIM']['start'] / sim.cfg.recordStep)
+    return v[start:].max() - v[start-1]
+
 
 
 cfg, netParams = init_test(cfg, pt5b, exp2syn)
 
 sim.createSimulateAnalyze(netParams=netParams, simConfig=cfg)
+
+data = {'epsp': float(get_epsp(sim)), 'sec': cfg.sec, 'weight': cfg.weight}
+print(data)
+comm.initialize()
+comm.send(json.dumps(data))
+comm.close()
