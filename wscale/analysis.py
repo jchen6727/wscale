@@ -10,7 +10,7 @@ df = pandas.read_csv('wscale_search.csv')[['config/sec_loc', 'config/weight', 'e
 sec_locs = df['config/sec_loc'].apply(parse_sec_loc)
 df[['sec', 'loc']] = pandas.DataFrame(sec_locs.tolist(), index=df.index)
 secs = df['sec'].unique()
-"""
+
 for sec in secs:
     locs = df[df['sec'] == sec]['loc'].unique()
     
@@ -22,5 +22,5 @@ for sec in secs:
     f = interp1d(epsps, weights, fill_value='extrapolate')
     #print([*zip(weights, epsps)])
     wnorm = f(EPSPNORM) / EPSPNORM
-"""
+
 
