@@ -1,5 +1,4 @@
-from netpyne.batchtools import specs, comm
-from netpyne import sim
+from netpyne import sim, specs
 import json, pickle
 from cfg import cfg
 
@@ -74,6 +73,4 @@ sim.createSimulateAnalyze(netParams=netParams, simConfig=cfg)
 
 data = {'epsp': float(get_epsp(sim)), 'sec': cfg.sec_loc[0], 'loc': cfg.sec_loc[1], 'weight': cfg.weight}
 print(data)
-comm.initialize()
-comm.send(json.dumps(data))
-comm.close()
+sim.send(json.dumps(data))

@@ -1,6 +1,7 @@
 import pandas
 import ast
 from scipy.interpolate import interp1d
+import pickle
 
 def parse_sec_loc(sec_loc):
     return ast.literal_eval(sec_loc)
@@ -11,16 +12,23 @@ sec_locs = df['config/sec_loc'].apply(parse_sec_loc)
 df[['sec', 'loc']] = pandas.DataFrame(sec_locs.tolist(), index=df.index)
 secs = df['sec'].unique()
 
+wnorms = {}
 for sec in secs:
     locs = df[df['sec'] == sec]['loc'].unique()
-    
-# for each section calculate the weight where the epsp at soma == 0.5
-    entries = df[df['config/sec'] == sec].sort_values(by='config/weight')
+    wnorms[sec] = []
+    for loc in locs:
+    # for each section calculate the weight where the epsp at soma == 0.5
+        entries = df[df['config/sec'] == sec].sort_values(by='config/weight')
     #print(entries)
-    weights = entries['config/weight']
-    epsps = entries['epsp']
-    f = interp1d(epsps, weights, fill_value='extrapolate')
+        weights = entries['config/weight']
+        epsps = entries['epsp']
+        f = interp1d(epsps, weights, fill_value='extrapolate')
     #print([*zip(weights, epsps)])
-    wnorm = f(EPSPNORM) / EPSPNORM
+        wnorm = f(EPSPNORM) / EPSPNORM
+        wnorms[sec].append(wnorm)
+
+with open('weight_norms.pkl', 'wb') as f:
+    pickle.dump(wnorms, f)
+
 
 
