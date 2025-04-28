@@ -3,16 +3,16 @@ import json, pickle
 from cfg import cfg
 
 
-with open('cell_params.pkl', 'rb') as fptr:
-    cell_params = pickle.load(fptr, encoding='latin1')
+with open('Na12HH16HH_TF.json', 'r') as fptr:
+    cell_params = json.load(fptr)
 #pt5b    = json.load(open('pt5b.json', 'r'))
 exp2syn = {'mod': 'MyExp2SynNMDABB', 'tau1NMDA': 15, 'tau2NMDA': 150, 'e': 0}
 
 
 def init_cfg(cfg):
     cfg = specs.SimConfig(cfg.__dict__)
-    cfg.sec_loc = ('soma', 0.5)
-    cfg.weight = 0.5
+    cfg.sec_loc = ('dend12', 0.5)
+    cfg.weight = 0.01
     cfg.analysis['plotTraces'] = {
         'include': ['CELL'],
         'saveFig': True,

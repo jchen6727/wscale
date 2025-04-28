@@ -7,11 +7,11 @@ cfg.duration = 1000           # Simulation duration in ms
 cfg.dt       = 0.025          # Simulation time step in ms
 cfg.verbose  = True           # Verbose output
 
+cfg.sec_loc = ('soma', 0.5)
     # config sec/weight
-cfg.sec    = 'soma'
+
 cfg.weight = 0.001
 
-    # Hyperparameters
 cfg.hParams = {
         'celsius' : 34.0,
         'v_init'  : -80.0         # Initial membrane potential
